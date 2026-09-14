@@ -1,2 +1,962 @@
-<h1>Luiza's Portfolio</h1>
-<p>Welcome to my website!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monterra | Ristorante Italiano & Bar</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0B0A08;
+            --bg-card: #14120E;
+            --bg-accent: #1C1914;
+            --gold: #D4AF37;
+            --gold-light: #F3E5AB;
+            --gold-dim: #997A15;
+            --text-light: #E8E5DF;
+            --text-muted: #A39E93;
+            --border: #2A251D;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        /* Header & Nav */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 10, 8, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .admin-btn {
+            border: 1px solid var(--gold-dim);
+            padding: 0.5rem 1rem;
+            border-radius: 2px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .admin-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        /* Layout */
+        main {
+            margin-top: 80px;
+        }
+
+        .section {
+            display: none;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons & Controls */
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+            color: var(--bg-dark);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Hero Section */
+        #home {
+            padding: 0;
+            max-width: 100%;
+        }
+
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(11, 10, 8, 0.6), rgba(11, 10, 8, 0.9)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            letter-spacing: 6px;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: var(--gold-light);
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Menu & Bar Grid - Proportional Card Layout */
+        .menu-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .category-desc {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .menu-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            height: 100%;
+        }
+
+        .menu-item:hover {
+            border-color: var(--gold-dim);
+            transform: translateY(-4px);
+        }
+
+        .menu-item-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .menu-item-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .menu-item-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.75rem;
+        }
+
+        .menu-item-title {
+            font-size: 1.3rem;
+            color: var(--gold-light);
+        }
+
+        .menu-item-price {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--gold);
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .menu-item-desc {
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .add-to-cart {
+            align-self: flex-start;
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            color: var(--gold);
+            padding: 0.5rem 1.2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+
+        /* Booking Form */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* Delivery & Cart */
+        .delivery-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .cart-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            height: fit-content;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        /* Admin Panel */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            margin-top: 1rem;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        .admin-table th {
+            background: var(--bg-accent);
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .badge {
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+        .badge-pending { background: #554000; color: #ffeb3b; }
+        .badge-confirmed { background: #1b5e20; color: #81c784; }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+            background: var(--bg-dark);
+            margin-top: 4rem;
+        }
+
+        /* Notifications */
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--bg-dark);
+            padding: 1rem 2rem;
+            font-weight: 600;
+            display: none;
+            z-index: 2000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .delivery-layout {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header>
+        <div class="logo">Monterra</div>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showSection('home')" class="active" id="nav-home">Home</a></li>
+            <li><a href="#" onclick="showSection('menu')" id="nav-menu">Menu</a></li>
+            <li><a href="#" onclick="showSection('bar')" id="nav-bar">Bar & Cocktails</a></li>
+            <li><a href="#" onclick="showSection('booking')" id="nav-booking">Reservations</a></li>
+            <li><a href="#" onclick="showSection('delivery')" id="nav-delivery">Delivery (<span id="cart-count">0</span>)</a></li>
+        </ul>
+        <a href="#" class="admin-btn" onclick="showSection('admin')" id="nav-admin">Admin Portal</a>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <h1>MONTERRA</h1>
+                <p>"Where Italian Heritage Meets Unrivaled Culinary Artistry"</p>
+                <div class="hero-cta">
+                    <button class="btn-gold" onclick="showSection('menu')">Explore Menu</button>
+                    <button class="btn-gold" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);" onclick="showSection('booking')">Reserve a Table</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu" class="section">
+            <div class="menu-category">
+                <h2 class="category-title">Antipasti</h2>
+                <p class="category-desc">Refined starters highlighting the rich regional flavors of Italy</p>
+                <div class="menu-grid" id="antipasti-grid"></div>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title">Primi Piatti</h2>
+                <p class="category-desc">Handcrafted fresh pasta made daily in-house by our master pastai</p>
+                <div class="menu-grid" id="primi-grid"></div>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title">Secondi Piatti</h2>
+                <p class="category-desc">Masterfully grilled prime meats and fresh Mediterranean seafood</p>
+                <div class="menu-grid" id="secondi-grid"></div>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title">Dolci</h2>
+                <p class="category-desc">Decadent Italian desserts to complete your culinary journey</p>
+                <div class="menu-grid" id="dolci-grid"></div>
+            </div>
+        </section>
+
+        <!-- Bar Section -->
+        <section id="bar" class="section">
+            <div class="menu-category">
+                <h2 class="category-title">Signature Cocktails</h2>
+                <p class="category-desc">Artisanal mixology infused with traditional Italian spirits</p>
+                <div class="menu-grid" id="cocktails-grid"></div>
+            </div>
+
+            <div class="menu-category">
+                <h2 class="category-title">Vini Rari (Fine Wines)</h2>
+                <p class="category-desc">A curated collection from Italy's premier vineyards</p>
+                <div class="menu-grid" id="wines-grid"></div>
+            </div>
+        </section>
+
+        <!-- Booking Section -->
+        <section id="booking" class="section">
+            <div class="form-container">
+                <h2 style="text-align: center; margin-bottom: 0.5rem; font-size: 2rem;">Table Reservation</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">Experience an exclusive evening at Monterra.</p>
+                <form id="booking-form" onsubmit="handleBooking(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-control" required placeholder="e.g., Lord Sterling">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" required placeholder="sterling@monterra.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Party Size</label>
+                        <select class="form-control" required>
+                            <option value="2">2 Guests (Intimate Dining)</option>
+                            <option value="4">4 Guests</option>
+                            <option value="6">6 Guests (Chef's Table)</option>
+                            <option value="8">8+ Guests (Private Dining Salon)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <select class="form-control" required>
+                            <option>18:00</option>
+                            <option>19:30</option>
+                            <option>21:00</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Special Requests</label>
+                        <textarea class="form-control" rows="3" placeholder="Dietary restrictions, anniversary celebration, seating preferences..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-gold" style="width: 100%;">Confirm Reservation</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Delivery Section -->
+        <section id="delivery" class="section">
+            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem;">Private Dining Delivery</h2>
+            <div class="delivery-layout">
+                <div class="form-container" style="max-width: 100%; margin: 0;">
+                    <h3 style="margin-bottom: 1.5rem;">Delivery Destination</h3>
+                    <form id="delivery-form" onsubmit="handleDelivery(event)">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" required placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Delivery Address</label>
+                            <input type="text" class="form-control" placeholder="Street address, Suite, Penthouse..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" required placeholder="+1 (555) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label>Delivery Notes</label>
+                            <textarea class="form-control" rows="2" placeholder="Gate access codes, concierge details..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-gold" style="width: 100%;">Place Delivery Order</button>
+                    </form>
+                </div>
+                <div class="cart-summary">
+                    <h3 style="margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">Selected Items</h3>
+                    <div id="cart-items-container">
+                        <p>Your delivery selection is empty. Browse the menu to add dishes.</p>
+                    </div>
+                    <div style="border-top: 1px solid var(--border); margin-top: 1rem; padding-top: 1rem; display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem;">
+                        <span>Total:</span>
+                        <span id="cart-total">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin" class="section">
+            <h2 style="margin-bottom: 1rem; font-size: 2.5rem;">Management Console</h2>
+            <p style="margin-bottom: 2rem;">Real-time management for Monterra reservations & delivery orders.</p>
+            
+            <div class="admin-grid">
+                <div>
+                    <h3>Table Reservations</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Guests</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-reservations">
+                            <tr>
+                                <td>Count Alessandro</td>
+                                <td>2 Guests</td>
+                                <td>Jul 24, 2026 - 19:30</td>
+                                <td><span class="badge badge-confirmed">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td>Lady Genevieve</td>
+                                <td>4 Guests</td>
+                                <td>Jul 25, 2026 - 21:00</td>
+                                <td><span class="badge badge-pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h3>Recent Delivery Orders</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders">
+                            <tr>
+                                <td>#MNT-8821</td>
+                                <td>Marco Rossi</td>
+                                <td>Tagliolini al Tartufo x2, Barolo x1</td>
+                                <td>$185.00</td>
+                                <td><span class="badge badge-confirmed">En Route</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="logo" style="font-size: 1.5rem; margin-bottom: 1rem;">Monterra</div>
+        <p>Via dei Condotti 84, Rome | Executive Chef: Matteo Vance</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--gold-dim);">&copy; 2026 Monterra Ristorante. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Notification Overlay -->
+    <div id="notification">Item added to selection</div>
+
+    <!-- Application JavaScript -->
+    <script>
+        // Menu & Bar Data with Additional Desserts for Perfect Proportional Alignment
+        const menuData = {
+            antipasti: [
+                { 
+                    id: 1, 
+                    name: "Carpaccio di Manzo Extra Vergine", 
+                    price: 34, 
+                    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+                    desc: "Ultra-thin sliced A5 Wagyu beef topped with aged Parmigiano-Reggiano, wild arugula, caper berries, and a drizzle of 25-year aged balsamic vinegar from Modena." 
+                },
+                { 
+                    id: 2, 
+                    name: "Burrata Pugliese con Tartufo", 
+                    price: 28, 
+                    image: "https://images.immediate.co.uk/production/volatile/sites/2/2022/11/Burrata-al-tartufo-8f2abfa.jpg?resize=768,698",
+                    desc: "Creamy artisanal Burrata from Puglia served over heirloom tomatoes, roasted pine nuts, and finished with fresh black summer truffle shavings." 
+                },
+                { 
+                    id: 3, 
+                    name: "Polpo alla Griglia", 
+                    price: 32, 
+                    image: "https://images.unsplash.com/photo-1535400255456-984241443b29?auto=format&fit=crop&w=800&q=80",
+                    desc: "Charred Mediterranean octopus, saffron potato mousseline, crispy capers, smoked paprika oil, and micro-herbs." 
+                }
+            ],
+            primi: [
+                { 
+                    id: 4, 
+                    name: "Tagliolini al Tartufo Bianco", 
+                    price: 58, 
+                    image: "https://tartufilaspora.it/cdn/shop/articles/shutterstock_1407598583.jpg?v=1743490815",
+                    desc: "House-made delicate ribbon pasta tossed in cultured European butter, Parmigiano-Reggiano, and generously shaved Alba white truffle." 
+                },
+                { 
+                    id: 5, 
+                    name: "Ravioli d'Anatra e Foie Gras", 
+                    price: 46, 
+                    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpKiPVWtyS_V87-pSUrbQSB9ta6s7feY2YqDQLupD7Pc5GTxR5xq3gFo_b&s=10",
+                    desc: "Hand-folded ravioli filled with slow-braised duck confit and artisanal foie gras, served in a rich brown butter and sage reduction." 
+                },
+                { 
+                    id: 6, 
+                    name: "Risotto all'Aragosta", 
+                    price: 52, 
+                    image: "https://media-assets.lacucinaitaliana.it/photos/61fd225e5817efd931c4e16a/1:1/w_2560%2Cc_limit/Risotto-con-laragosta.jpg",
+                    desc: "Acquerello carnaroli rice slowly cooked with poached Maine lobster tail, saffron threads, lemon zest, and delicate mascarpone finish." 
+                }
+            ],
+            secondi: [
+                { 
+                    id: 7, 
+                    name: "Bistecca alla Fiorentina (1000g)", 
+                    price: 160, 
+                    image: "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80",
+                    desc: "Dry-aged 30-day Porterhouse steak seasoned with rosemary, sea salt, and grilled over holm oak charcoal. Designed for sharing." 
+                },
+                { 
+                    id: 8, 
+                    name: "Branzino in Crosta di Sale", 
+                    price: 48, 
+                    image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80",
+                    desc: "Whole Mediterranean Sea Bass baked in a sea-salt crust, filleted tableside, accompanied by sautéed baby spinach and herb-infused olive oil." 
+                },
+                { 
+                    id: 9, 
+                    name: "Costoletta di Agnello", 
+                    price: 54, 
+                    image: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=800&q=80",
+                    desc: "Herb-crusted rack of Colorado lamb served with caramelised shallot puree, baby carrots, and a rich Chianti wine jus." 
+                }
+            ],
+            dolci: [
+                { 
+                    id: 10, 
+                    name: "Tiramisù Tradizionale Monterra", 
+                    price: 18, 
+                    image: "https://i0.wp.com/cookingitalians.com/wp-content/uploads/2024/11/Tiramisu.jpg?fit=1344%2C768&ssl=1",
+                    desc: "Savoiardi ladyfingers soaked in dark roasted espresso and Vecchia Romagna brandy, layered with whipped mascarpone cream and Valrhona cocoa." 
+                },
+                { 
+                    id: 11, 
+                    name: "Panna Cotta al Pistacchio", 
+                    price: 20, 
+                    image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80",
+                    desc: "Silky Sicilian pistachio panna cotta served with sour cherry compote and edible 24k gold leaf." 
+                },
+                { 
+                    id: 16, 
+                    name: "Cannoli Siciliani Croccanti", 
+                    price: 19, 
+                    image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80",
+                    desc: "Crispy fried pastry shells filled with sweet ricotta cheese, candied orange peel, dark chocolate chips, and crushed Bronte pistachios." 
+                }
+            ],
+            cocktails: [
+                { 
+                    id: 12, 
+                    name: "Monterra Smoked Negroni", 
+                    price: 24, 
+                    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80",
+                    desc: "Tanqueray No. TEN Gin, Campari, Sweet Vermouth infused with cherry wood smoke served over a hand-carved ice sphere." 
+                },
+                { 
+                    id: 13, 
+                    name: "Aperitivo Royale", 
+                    price: 22, 
+                    image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80",
+                    desc: "Select Aperitivo, fresh pomegranate reduction, topped with vintage Franciacorta sparkling wine and rosemary spray." 
+                },
+                { 
+                    id: 17, 
+                    name: "Espresso Martini Monterra", 
+                    price: 25, 
+                    image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80",
+                    desc: "Belvedere Vodka, fresh brewed Italian espresso, Kahlúa, and dark chocolate liqueur garnished with roasted espresso beans." 
+                }
+            ],
+            wines: [
+                { 
+                    id: 14, 
+                    name: "Sassicaia, Tenuta San Guido (2018)", 
+                    price: 420, 
+                    image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80",
+                    desc: "Full-bodied Tuscan icon. Notes of blackcurrant, cedar, leather, and refined, silky tannins." 
+                },
+                { 
+                    id: 15, 
+                    name: "Barolo Monfortino Riserva", 
+                    price: 850, 
+                    image: "https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?auto=format&fit=crop&w=800&q=80",
+                    desc: "The apex of Nebbiolo. Layers of dried rose petals, dark cherry, truffle, and extraordinary depth." 
+                },
+                { 
+                    id: 18, 
+                    name: "Tignanello, Antinori (2019)", 
+                    price: 380, 
+                    image: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80",
+                    desc: "A rich Tuscan red blend with aromas of ripe red fruit, vanilla, spices, and an exceptionally smooth finish." 
+                }
+            ]
+        };
+
+        let cart = [];
+
+        // DOM Rendering for Grid Cards
+        function renderMenuItems() {
+            renderGrid("antipasti-grid", menuData.antipasti);
+            renderGrid("primi-grid", menuData.primi);
+            renderGrid("secondi-grid", menuData.secondi);
+            renderGrid("dolci-grid", menuData.dolci);
+            renderGrid("cocktails-grid", menuData.cocktails);
+            renderGrid("wines-grid", menuData.wines);
+        }
+
+        function renderGrid(containerId, items) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = items.map(item => `
+                <div class="menu-item">
+                    <img class="menu-item-img" src="${item.image}" alt="${item.name}">
+                    <div class="menu-item-body">
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-title">${item.name}</span>
+                                <span class="menu-item-price">$${item.price}</span>
+                            </div>
+                            <p class="menu-item-desc">${item.desc}</p>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(${item.id})">Add to Order</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Section View Switcher
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            const navLink = document.getElementById(`nav-${sectionId}`);
+            if(navLink) navLink.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Cart Management
+        function addToCart(itemId) {
+            let foundItem = null;
+            Object.values(menuData).forEach(cat => {
+                const match = cat.find(i => i.id === itemId);
+                if (match) foundItem = match;
+            });
+
+            if (foundItem) {
+                cart.push(foundItem);
+                updateCartUI();
+                showNotification(`Added "${foundItem.name}" to your order.`);
+            }
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const container = document.getElementById('cart-items-container');
+            const totalElement = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p>Your delivery selection is empty. Browse the menu to add dishes.</p>`;
+                totalElement.innerText = `$0.00`;
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map((item, index) => {
+                total += item.price;
+                return `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <div>$${item.price.toFixed(2)}</div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color: #ff5555; cursor:pointer; font-size:1.1rem;">&times;</button>
+                    </div>
+                `;
+            }).join('');
+
+            totalElement.innerText = `$${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Toast Feedback
+        function showNotification(msg) {
+            const notif = document.getElementById('notification');
+            notif.innerText = msg;
+            notif.style.display = 'block';
+            setTimeout(() => {
+                notif.style.display = 'none';
+            }, 3000);
+        }
+
+        // Submissions & Admin Panel Link
+        function handleBooking(e) {
+            e.preventDefault();
+            const inputs = e.target.querySelectorAll('input, select');
+            const name = inputs[0].value;
+            const guests = inputs[2].value;
+            const date = inputs[3].value;
+            const time = inputs[4].value;
+
+            const adminTable = document.getElementById('admin-reservations');
+            adminTable.innerHTML += `
+                <tr>
+                    <td>${name}</td>
+                    <td>${guests} Guests</td>
+                    <td>${date} - ${time}</td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                </tr>
+            `;
+
+            showNotification("Reservation Request Received. We will confirm shortly.");
+            e.target.reset();
+        }
+
+        function handleDelivery(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert("Your cart is empty. Please select dishes from the Menu or Bar first.");
+                return;
+            }
+            const name = e.target.querySelectorAll('input')[0].value;
+            const total = cart.reduce((acc, curr) => acc + curr.price, 0);
+
+            const adminOrders = document.getElementById('admin-orders');
+            const orderId = '#MNT-' + Math.floor(1000 + Math.random() * 9000);
+            adminOrders.innerHTML += `
+                <tr>
+                    <td>${orderId}</td>
+                    <td>${name}</td>
+                    <td>${cart.length} items</td>
+                    <td>$${total.toFixed(2)}</td>
+                    <td><span class="badge badge-pending">Preparing</span></td>
+                </tr>
+            `;
+
+            showNotification("Delivery Order placed successfully!");
+            cart = [];
+            updateCartUI();
+            e.target.reset();
+        }
+
+        // Initial Load
+        window.onload = () => {
+            renderMenuItems();
+        };
+    </script>
+</body>
+</html>
